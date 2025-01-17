@@ -19,7 +19,7 @@ class _LogInState extends State<LogIn> {
 
   final _formkey = GlobalKey<FormState>(); // to check the empty text field
 
-  userLogin() async {
+  void userLogin() async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -27,21 +27,32 @@ class _LogInState extends State<LogIn> {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Bottomnav()));
     } on FirebaseAuthException catch (e) {
+      String errorMessage = "An error occurred. Please try again.";
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: Text(
-              "No User found for that email.",
-              style: TextStyle(fontSize: 20.0),
-            )));
-      } else if (e.code == "wrong-password") {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.redAccent,
-            content: Text(
-              "Wrong password Provided by the user.",
-              style: TextStyle(fontSize: 20.0),
-            )));
+        errorMessage = "No user found for this email.";
+      } else if (e.code == 'wrong-password') {
+        errorMessage = "Incorrect password. Please try again.";
+      } else if (e.code == 'invalid-email') {
+        errorMessage = "The email address is not valid.";
+      } else if (e.code == 'user-disabled') {
+        errorMessage = "This user account has been disabled.";
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.redAccent,
+        content: Text(
+          errorMessage,
+          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+        ),
+      ));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        backgroundColor: Colors.redAccent,
+        content: Text(
+          "An unexpected error occurred. Please try again later.",
+          style: TextStyle(fontSize: 16.0, color: Colors.white),
+        ),
+      ));
     }
   }
 
@@ -56,11 +67,12 @@ class _LogInState extends State<LogIn> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Logo and Header
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'images/logo.png', //  logo image
+                      'images/logo.png', // Logo image
                       width: 95.0,
                       height: 95.0,
                     ),
@@ -69,14 +81,14 @@ class _LogInState extends State<LogIn> {
                         Text(
                           'UniStay',
                           style: TextStyle(
-                            fontSize: 49.0, // Adjust size as needed
+                            fontSize: 49.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           'Private Accommodation',
                           style: TextStyle(
-                            fontSize: 11.0, // Adjust size as needed
+                            fontSize: 11.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -84,34 +96,27 @@ class _LogInState extends State<LogIn> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const SizedBox(height: 20.0),
                 Center(
                   child: Text(
                     "Sign In",
                     style: AppWidget.semiboldTextFieldStyle(),
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 Center(
                   child: Text(
                     "Please enter the details below to continue.",
                     style: AppWidget.smallboldTextFieldStyle(),
                   ),
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
+                const SizedBox(height: 30.0),
+                // Email Field
                 Text(
                   "Email",
                   style: AppWidget.semiboldTextFieldStyle_2(),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 Container(
                   padding: const EdgeInsets.only(left: 20.0),
                   decoration: BoxDecoration(
@@ -122,6 +127,9 @@ class _LogInState extends State<LogIn> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email.';
+                      } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address.';
                       }
                       return null;
                     },
@@ -130,16 +138,13 @@ class _LogInState extends State<LogIn> {
                         border: InputBorder.none, hintText: "Email"),
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
+                // Password Field
                 Text(
                   "Password",
                   style: AppWidget.semiboldTextFieldStyle_2(),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 Container(
                   padding: const EdgeInsets.only(left: 20.0),
                   decoration: BoxDecoration(
@@ -159,14 +164,12 @@ class _LogInState extends State<LogIn> {
                         border: InputBorder.none, hintText: "Password"),
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "Forgot Pasword?",
+                      "Forgot Password?",
                       style: TextStyle(
                           color: Color(0xE86EB069),
                           fontSize: 15.0,
@@ -174,18 +177,17 @@ class _LogInState extends State<LogIn> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
+                // Login Button
                 GestureDetector(
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
                       setState(() {
-                        email = mailcontroller.text;
+                        email = mailcontroller.text.trim();
                         password = passwordcontroller.text;
                       });
+                      userLogin();
                     }
-                    userLogin();
                   },
                   child: Center(
                     child: Container(
@@ -206,9 +208,8 @@ class _LogInState extends State<LogIn> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const SizedBox(height: 20.0),
+                // Sign Up Prompt
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -234,18 +235,16 @@ class _LogInState extends State<LogIn> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 10.0),
                 const Center(
                   child: Text(
                     '@ 2024 UniStay All Right Reserved.',
                     style: TextStyle(
-                      fontSize: 10.0, // Adjust size as needed
+                      fontSize: 10.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
