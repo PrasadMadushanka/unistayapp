@@ -17,7 +17,7 @@ class _LogInState extends State<LogIn> {
   TextEditingController mailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
 
-  final _formkey = GlobalKey<FormState>(); // to check the empty text field
+  final _formkey = GlobalKey<FormState>();
 
   userLogin() async {
     try {
