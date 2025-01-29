@@ -2,11 +2,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:unistaynew/pages/category_products.dart';
-import 'package:unistaynew/pages/product_detail.dart';
-import 'package:unistaynew/services/database.dart';
-import 'package:unistaynew/services/shared_pref.dart';
-import 'package:unistaynew/widget/support_widget.dart';
+
+import '../services/shared_pref.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
