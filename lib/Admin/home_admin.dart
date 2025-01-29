@@ -55,7 +55,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                         size: 30,
                       ),
                       const SizedBox(
-                        width: 20.0,
+                        width: 22.0,
                       ),
                       Text(
                         "Add Room",
