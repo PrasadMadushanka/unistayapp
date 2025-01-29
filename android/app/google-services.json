@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "657085980130",
+    "project_id": "unistaynewapp",
+    "storage_bucket": "unistaynewapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657085980130:android:4d5c1a838bd16bae43adbb",
+        "android_client_info": {
+          "package_name": "com.example.unistaynew"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm0uz-ZyPpkXx1Bz1JRblp4B06ccxzJS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
