@@ -85,7 +85,7 @@ class _LogInState extends State<LogIn> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 30.0,
                 ),
                 Center(
                   child: Text(
