@@ -133,7 +133,7 @@ class _AddProductState extends State<AddProduct> {
                         height: 150,
                         width: 150,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1.5),
+                            border: Border.all(color: Colors.grey, width: 1.5),
                             borderRadius: BorderRadius.circular(20)),
                         child: const Icon(Icons.camera_alt_outlined),
                       ),
@@ -143,14 +143,14 @@ class _AddProductState extends State<AddProduct> {
                         elevation: 4.0,
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
-                          height: 150,
-                          width: 150,
+                          height: 152,
+                          width: 152,
                           decoration: BoxDecoration(
                               border:
                                   Border.all(color: Colors.black, width: 1.5),
-                              borderRadius: BorderRadius.circular(20)),
+                              borderRadius: BorderRadius.circular(22)),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(22),
                             child: Image.file(
                               selectedImage!,
                               fit: BoxFit.cover,
@@ -237,7 +237,7 @@ class _AddProductState extends State<AddProduct> {
                 height: 10.0,
               ),
               Text(
-                "Contact Number",
+                "Please Provide Contact Number",
                 style: AppWidget.LightTextFieldStyle(),
               ),
               const SizedBox(
