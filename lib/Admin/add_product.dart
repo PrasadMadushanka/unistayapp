@@ -63,7 +63,7 @@ class _AddProductState extends State<AddProduct> {
         namecontroller.text = "";
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            backgroundColor: Color(0xE86EB069),
+            backgroundColor: Color(#25b0d8),
             content: Text(
               "Product has been uploaded successfully!",
               style: TextStyle(fontSize: 20.0),
