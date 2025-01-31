@@ -42,11 +42,11 @@ class _HomeAdminState extends State<HomeAdmin> {
                 elevation: 3.0,
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  padding: const EdgeInsets.only(top: 13.0, bottom: 12.0),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
+                      borderRadius: BorderRadius.circular(13)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
