@@ -113,16 +113,16 @@ class _AddProductState extends State<AddProduct> {
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.only(
-              left: 20.0, top: 20.0, right: 20.0, bottom: 20.0),
+              left: 23.0, top: 23.0, right: 23.0, bottom: 23.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Upload the Room Image",
+                "Please Your Upload the Room Image",
                 style: AppWidget.LightTextFieldStyle(),
               ),
               const SizedBox(
-                height: 10.0,
+                height: 12.0,
               ),
               selectedImage == null
                   ? GestureDetector(
