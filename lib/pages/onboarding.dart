@@ -12,91 +12,110 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/background.jpg'), // Path to your image
-            fit: BoxFit.cover,
-            opacity: 0.33, // Fills the background
+      body: Stack(
+        children: [
+          // Background Image with overlay
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('images/background.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black.withOpacity(0.5),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
           ),
-        ),
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 180,
-              ),
-              Row(
-                //this is logo , name and slogan
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(
-                    'images/logo.png', //  logo image
-                    width: 150.0,
-                    height: 150.0,
-                  ),
-                  const Column(
-                    children: [
-                      Text(
-                        'UniStay',
-                        style: TextStyle(
-                          fontSize: 82.0, // Adjust size as needed
-                          fontWeight: FontWeight.bold,
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Logo and Name Section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'images/logo.png',
+                      width: 120.0,
+                      height: 120.0,
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'UniStay',
+                          style: TextStyle(
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Private Accommodation',
-                        style: TextStyle(
-                          fontSize: 22.0, // Adjust size as needed
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          'Private Accommodation',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white70,
+                          ),
                         ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 300),
+
+                // Get Started Button
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LogIn()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 370,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const LogIn()));
-                },
-                child: Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width / 2,
-                    padding: const EdgeInsets.all(25),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: const Center(
-                      child: Text(
-                        "   Let's Get Started   ",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold),
+                    ),
+                    child: const Text(
+                      "Let's Get Started",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-              ),
-              const Spacer(),
-              const Text(
-                '@ 2024 UniStay All Right Reserved.',
-                style: TextStyle(
-                  fontSize: 15.0, // Adjust size as needed
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 20),
+
+                // Footer Text
+                const Text(
+                  '© 2024 UniStay. All Rights Reserved.',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              )
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
