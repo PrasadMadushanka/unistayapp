@@ -25,6 +25,7 @@ android {
     namespace = "com.example.unistaynew"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    ndkVersion "25.1.8937393"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
