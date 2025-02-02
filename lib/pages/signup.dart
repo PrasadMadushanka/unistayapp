@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:random_string/random_string.dart';
 import 'package:unistaynew/pages/bottomnav.dart';
 import 'package:unistaynew/pages/login.dart';
@@ -59,14 +58,14 @@ class _SignUpState extends State<SignUp> {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.redAccent,
               content: Text(
-                "Password Provided is too  weak.",
+                "Password Provided is too weak.",
                 style: TextStyle(fontSize: 20.0),
               )));
         } else if (e.code == "email-already-in-use") {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.redAccent,
               content: Text(
-                "Account Already exsists.",
+                "Account Already exists.",
                 style: TextStyle(fontSize: 20.0),
               )));
         }
@@ -151,12 +150,16 @@ class _SignUpState extends State<SignUp> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your name.';
+                      } else if (value.length < 3) {
+                        return 'Username must be at least 3 characters long.';
                       }
                       return null;
                     },
                     controller: namecontroller,
                     decoration: const InputDecoration(
-                        border: InputBorder.none, hintText: "Username"),
+                      border: InputBorder.none,
+                      hintText: "Username",
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -179,12 +182,17 @@ class _SignUpState extends State<SignUp> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email.';
+                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        return 'Please enter a valid email address.';
                       }
                       return null;
                     },
                     controller: mailcontroller,
                     decoration: const InputDecoration(
-                        border: InputBorder.none, hintText: "Email"),
+                      border: InputBorder.none,
+                      hintText: "Email",
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -208,12 +216,16 @@ class _SignUpState extends State<SignUp> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your password.';
+                      } else if (value.length < 6) {
+                        return 'Password must be at least 6 characters long.';
                       }
                       return null;
                     },
                     controller: passwordcontroller,
                     decoration: const InputDecoration(
-                        border: InputBorder.none, hintText: "Password"),
+                      border: InputBorder.none,
+                      hintText: "Password",
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -228,22 +240,24 @@ class _SignUpState extends State<SignUp> {
                           email = mailcontroller.text;
                           password = passwordcontroller.text;
                         });
+                        registration();
                       }
-                      registration();
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-                          color: const Color(0xE86EB069),
-                          borderRadius: BorderRadius.circular(10)),
+                        color: const Color(0xE86EB069),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: const Center(
                         child: Text(
                           "SIGNUP",
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -271,9 +285,10 @@ class _SignUpState extends State<SignUp> {
                       child: const Text(
                         "Sign In",
                         style: TextStyle(
-                            color: Color(0xE86EB069),
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500),
+                          color: Color(0xE86EB069),
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ],
